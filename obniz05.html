@@ -1,0 +1,64 @@
+<!-- HTML Example -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://obniz.io/js/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script src="https://unpkg.com/obniz@3.7.0/obniz.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="obniz-debug"></div>
+  <br>
+<button id="buttonA" class="btn btn-warning" style="width:45%;height:100px;font-size:50px;">左前進</button>
+<button id="buttonB" class="btn btn-warning" style="width:45%;height:100px;font-size:50px;">右前進</button>
+<button id="buttonA2" class="btn btn-warning" style="width:45%;height:100px;font-size:50px;">左後退</button>
+<button id="buttonB2" class="btn btn-warning" style="width:45%;height:100px;font-size:50px;">右後退</button>
+
+<script>
+var obniz = new Obniz("6706-7224");
+obniz.onconnect = async function () {
+  var motorA = obniz.wired("DCMotor",  {forward:1, back:0});
+  motorA.power(80);
+  motorA.move(true);
+  motorA.power(80);
+  motorA.move(false);
+  var motorB = obniz.wired("DCMotor",  {forward:2, back:3});
+  motorB.power(80);
+  motorB.move(true);
+  motorB.power(80);
+  motorB.move(false);
+  
+  $("#buttonA").on('touchstart mousedown', function(){
+    motorA.move(true);  //ボタンが押されたら動かす
+  })
+  $("#buttonA").on('touchend mouseup', function(){
+    motorA.stop(); //ボタンが離されたら止める
+  })
+  
+  $("#buttonB").on('touchstart mousedown', function(){
+    motorB.move(true);  //ボタンが押されたら動かす
+  })
+  $("#buttonB").on('touchend mouseup', function(){
+    motorB.stop(); //ボタンが離されたら止める
+  })
+
+  $("#buttonA2").on('touchstart mousedown', function(){
+    motorA.move(false);  //ボタンが押されたら動かす
+  })
+  $("#buttonA2").on('touchend mouseup', function(){
+    motorA.stop(); //ボタンが離されたら止める
+  })
+  
+  $("#buttonB2").on('touchstart mousedown', function(){
+    motorB.move(false);  //ボタンが押されたら動かす
+  })
+  $("#buttonB2").on('touchend mouseup', function(){
+    motorB.stop(); //ボタンが離されたら止める
+  })
+}
+
+</script>
+</body>
+</html>
