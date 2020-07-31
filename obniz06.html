@@ -1,0 +1,44 @@
+<!-- HTML Example -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://obniz.io/js/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script src="https://unpkg.com/obniz@3.7.0/obniz.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="obniz-debug"></div>
+  <br>
+<button id="buttonA" class="btn btn-warning" style="width:45%;height:100px;font-size:50px;">赤</button>
+<button id="buttonB" class="btn btn-warning" style="width:45%;height:100px;font-size:50px;">青</button>
+
+<script>
+var obniz = new Obniz("6706-7224");
+obniz.onconnect = async function () {
+  var ledA = obniz.wired("LED", {anode:0, cathode:1});
+  ledA.on();
+
+  var ledB = obniz.wired("LED", {anode:10, cathode:11});
+  ledB.on();
+
+  $("#buttonA").on('touchstart mousedown', function(){
+    ledA.on();  //ボタンが押されたら動かす
+  })
+  $("#buttonA").on('touchend mouseup', function(){
+    ledA.off(); //ボタンが離されたら止める
+  })
+  
+  $("#buttonB").on('touchstart mousedown', function(){
+    ledB.on();  //ボタンが押されたら動かす
+  })
+  $("#buttonB").on('touchend mouseup', function(){
+    ledB.off(); //ボタンが離されたら止める
+  })
+
+}
+
+</script>
+</body>
+</html>
